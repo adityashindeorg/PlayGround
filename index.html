@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101017" />
+  <title>JUJUTSU KAISEN — Veil of the Unseen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="3D game world"></canvas>
+    <div class="grain"></div>
+    <section id="title-screen" class="screen visible">
+      <div class="title-backdrop"></div>
+      <div class="title-content">
+        <div class="eyebrow"><span class="eyebrow-line"></span> A JUJUTSU KAISEN FAN GAME <span class="eyebrow-line"></span></div>
+        <h1>VEIL OF<br><em>THE UNSEEN</em></h1>
+        <p class="title-copy">A curse is gathering beneath the old school grounds.<br>Step into the night. Find the source. Break the veil.</p>
+        <button id="start-button" class="primary-button">BEGIN YOUR MISSION <span>↗</span></button>
+        <div class="title-foot"><span>STORY MODE</span><span>•</span><span>ONE PLAYER</span><span>•</span><span>JUJUTSU HIGH — TOKYO</span></div>
+      </div>
+      <div class="title-mark">呪</div>
+      <div class="title-controls"><kbd>W A S D</kbd> MOVE <i>·</i> <kbd>SPACE</kbd> ATTACK <i>·</i> <kbd>SHIFT</kbd> DASH</div>
+    </section>
+
+    <section id="hud" class="hud hidden" aria-live="polite">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">呪</span><span>JUJUTSU<br><b>KAISEN</b></span></div>
+        <div class="chapter"><span class="chapter-label">FIELD REPORT <b>01</b></span><strong>THE VEIL AT JUJUTSU HIGH</strong></div>
+        <button id="pause-button" class="icon-button" aria-label="Pause">Ⅱ</button>
+      </header>
+      <div class="left-panel">
+        <div class="character-card">
+          <div class="char-avatar" id="char-avatar">悠</div>
+          <div class="char-info"><span>FIRST YEAR · TOKYO</span><strong id="character-name">YUJI ITADORI</strong><small id="character-style">DIVERGENT FIST</small></div>
+          <span class="switch-hint">Q</span>
+        </div>
+        <div class="bars">
+          <div class="bar-label"><span>VITALITY</span><b id="health-text">100 / 100</b></div><div class="bar-track"><i id="health-bar"></i></div>
+          <div class="bar-label energy-label"><span>CURSED ENERGY</span><b id="energy-text">100%</b></div><div class="bar-track energy-track"><i id="energy-bar"></i></div>
+        </div>
+        <div class="objective"><span class="objective-icon">✳</span><div><small>CURRENT OBJECTIVE</small><strong id="objective-text">Reach the old training hall</strong></div></div>
+      </div>
+      <div class="right-panel"><div class="area-label"><span class="pulse-dot"></span><span id="area-name">TOKYO JUJUTSU HIGH</span></div><div class="threat-level">CURSE ACTIVITY <b id="threat-count">LOW</b></div></div>
+      <div id="toast" class="toast"></div>
+      <div id="dialogue" class="dialogue hidden"><div class="dialogue-name" id="dialogue-name">GOJO SATORU</div><p id="dialogue-text"></p><button id="dialogue-next">CONTINUE <span>↗</span></button></div>
+      <div id="mission-banner" class="mission-banner"><span>MISSION UPDATED</span><b id="mission-banner-text"></b></div>
+      <div id="boss-hud" class="boss-hud hidden"><div><span>SPECIAL GRADE CURSE</span><b id="boss-hp-text">100%</b></div><i><em id="boss-hp-bar"></em></i></div>
+      <div class="bottom-hud">
+        <div class="controls-hint"><span><kbd>W A S D</kbd> MOVE</span><span><kbd>SPACE</kbd> ATTACK</span><span><kbd>E</kbd> TECHNIQUE</span><span><kbd>SHIFT</kbd> DASH</span></div>
+        <div class="skill-row"><div class="skill-chip"><b>SPACE</b><span id="attack-label">BLACK FLASH</span></div><div class="skill-chip"><b>E</b><span id="skill-label">CURSED BURST</span></div><div class="skill-chip"><b>Q</b><span>SWITCH SORCERER</span></div></div>
+      </div>
+      <div id="touch-controls" class="touch-controls">
+        <div id="joystick" class="joystick"><div class="stick"></div></div>
+        <div class="touch-actions"><button data-action="attack">HIT</button><button data-action="skill">TECH</button><button data-action="dash">DASH</button></div>
+      </div>
+      <div id="interact-prompt" class="interact-prompt hidden"><kbd>F</kbd> <span>EXAMINE</span></div>
+    </section>
+    <section id="pause-screen" class="screen overlay-screen"><div class="pause-box"><span class="eyebrow">FIELD PAUSED</span><h2>TAKE A BREATH.</h2><p>The veil won't hold forever.</p><button id="resume-button" class="primary-button">RETURN TO MISSION <span>↗</span></button><div class="pause-note">WASD to move · Space to strike · E for cursed technique</div></div></section>
+    <section id="end-screen" class="screen overlay-screen"><div class="pause-box"><span class="eyebrow" id="end-eyebrow">MISSION COMPLETE</span><h2 id="end-title">THE VEIL IS BROKEN.</h2><p id="end-copy">The first-years have made it through the night.</p><button id="restart-button" class="primary-button">PLAY AGAIN <span>↗</span></button></div></section>
+    <div id="loading" class="loading"><span class="loading-seal">呪</span><span>WEAVING THE VEIL</span><i></i></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
